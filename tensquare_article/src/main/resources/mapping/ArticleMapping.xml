@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tensquare.article.dao.ArticleDao">
+
+    <resultMap id="BaseResultMap" type="com.tensquare.article.pojo.Article">
+        <result column="id" jdbcType="VARCHAR" property="id" />
+        <result column="columnid" jdbcType="VARCHAR" property="columnid" />
+        <result column="userid" jdbcType="VARCHAR" property="userid" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="content" jdbcType="VARCHAR" property="content" />
+        <result column="image" jdbcType="VARCHAR" property="image" />
+        <result column="createtime" jdbcType="DATE" property="createtime" />
+        <result column="updatetime" jdbcType="DATE" property="updatetime" />
+        <result column="ispublic" jdbcType="VARCHAR" property="ispublic" />
+        <result column="istop" jdbcType="VARCHAR" property="istop" />
+        <result column="visits" jdbcType="INTEGER" property="visits" />
+        <result column="thumbup" jdbcType="INTEGER" property="thumbup" />
+        <result column="comment" jdbcType="INTEGER" property="comment" />
+        <result column="state" jdbcType="VARCHAR" property="state" />
+        <result column="channelid" jdbcType="VARCHAR" property="channelid" />
+        <result column="url" jdbcType="VARCHAR" property="url" />
+        <result column="type" jdbcType="VARCHAR" property="type" />
+    </resultMap>
+
+    <select id="selectList" resultType="com.tensquare.article.pojo.Article">
+        select * from tb_article
+    </select>
+    <select id="selectById" resultType="com.tensquare.article.pojo.Article">
+         select * from tb_article where id = #{id}
+    </select>
+    <insert id="insert" >
+        insert into tb_article (id,columnid,userid,title,content,image,createtime,updatetime,ispublic,istop,visits,thumbup,comment,state,channelid,url,type)
+        values (#{id},#{columnid},#{userid},#{title},#{content},#{image},#{createtime},#{updatetime},#{ispublic},#{istop},#{visits},#{thumbup},#{comment},#{state},#{channelid},#{url},#{type})
+    </insert>
+    <update id="updateById" >
+        update tb_article set id = #{id},columnid = #{columnid},userid = #{userid},title = #{title},content = #{content},image = #{image},createtime = #{createtime},updatetime = #{updatetime},
+                ispublic = #{ispublic},istop = #{istop},visits = #{visits},thumbup = #{thumbup},comment = #{comment},state = #{state},channelid = #{channelid},url = #{url},type = #{type}
+        where id = #{id}
+    </update>
+    <delete id="deleteById">
+        delete from tb_article where id=#{id}
+    </delete>
+    <select id="findByPaging" resultMap="BaseResultMap" parameterType="map">
+        select * from tb_article where 1=1
+        <if test="id != null">
+            and id = #{id}
+        </if>
+    </select>
+</mapper>
